@@ -72,16 +72,15 @@ Output links for youtube and spotify according to users mood
 
 ### Project Demo
 # Video
+https://github.com/user-attachments/assets/0dec4ab5-9754-40bb-a1d6-45ac31652ff8
 
 
 
 
 
 
+--Tinku Analyzes the mood from the interactions of the user through speech or text and provides with corresponding songs and videos to change or maintain the mood.
 
-
-[Add your demo video link here]
-*Explain what the video demonstrates*
 
 
 
