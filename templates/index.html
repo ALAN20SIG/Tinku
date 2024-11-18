@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tinku's Mood Analyzer</title>
+    <style>
+        /* General styles */
+        body {
+            margin: 0;
+            font-family: 'Times New Roman', Times, serif;
+            color: white;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #2c2c2c;
+            position: relative;
+        }
+
+        .container {
+            display: flex;
+            width: 100%;
+            height: 100%;
+            padding: 20px;
+            position: relative;
+        }
+
+        /* Left column (Keep Notes) */
+        .left {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: flex-start;
+            padding: 20px;
+            overflow-y: auto;
+            background-color: transparent; /* Transparent background */
+        }
+
+        .left h2 {
+            margin-top: 0;
+            text-align: left;
+        }
+
+        .note {
+            margin: 10px auto;
+            padding: 15px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 5px;
+            color: white;
+            text-align: left;
+        }
+
+        .note a {
+            color: #FFD700;
+        }
+
+        .delete-btn {
+            background-color: #FF4D4D;
+            margin-left: 10px;
+            padding: 5px 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .delete-btn:hover {
+            background-color: #CC0000;
+        }
+
+        .read-btn {
+            background-color: #007BFF;
+            padding: 5px 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 5px;
+        }
+
+        .read-btn:hover {
+            background-color: #0056b3;
+        }
+
+        /* Right column (Text Input & AI Analysis) */
+        .right {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: flex-end;
+            padding: 20px;
+            background-color: transparent; /* Transparent background */
+        }
+
+        h1 {
+            font-size: 2.5em;
+            text-align: right;
+        }
+
+        textarea {
+            width: 90%;
+            height: 150px;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+            border: none;
+            font-size: 1em;
+        }
+
+        button {
+            padding: 10px 20px;
+            margin: 5px 0;
+            border-radius: 5px;
+            border: none;
+            font-size: 1em;
+            cursor: pointer;
+            background-color: #007BFF;
+            color: white;
+            width: 90%;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        .media-links {
+            margin-top: 10px;
+            text-align: right;
+            width: 90%;
+        }
+
+        .media-links a {
+            color: #FFD700;
+        }
+
+        /* Spline viewer as background */
+        .background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+
+        /* Styling the splits */
+        .left, .right {
+            min-width: 250px;
+        }
+    </style>
+    <script type="module" src="https://unpkg.com/@splinetool/viewer@1.9.35/build/spline-viewer.js"></script>
+</head>
+<body>
+    <!-- Background Spline -->
+    <div class="background">
+        <spline-viewer url="https://prod.spline.design/2MOUScol0ZkJQpax/scene.splinecode"></spline-viewer>
+    </div>
+
+    <!-- Main Container -->
+    <div class="container">
+        <!-- Left Column (Keep Notes) -->
+        <div class="left">
+            <h2>Your Saved Notes</h2>
+            <div id="notes">
+                {% for note in notes %}
+                <div class="note">
+                    < p><b>Note:</b> {{ note.text }}</p>
+                    <p><b>Video:</b> <a href="{{ note.video_link }}" target="_blank">{{ note.video_link }}</a></p>
+                    <p><b>Playlist:</b> <a href="{{ note.playlist_link }}" target="_blank">{{ note.playlist_link }}</a></p>
+                    <button class="read-btn" onclick="readNote('{{ note.text }}')">Read</button>
+                    <button class="delete-btn" onclick="deleteNote({{ note.id }})">Delete</button>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+
+        <!-- Right Column (Text Input & AI Analysis) -->
+        <div class="right">
+            <h1>Welcome to Tinku's Mood Analyzer</h1>
+            <textarea id="userInput" placeholder="Describe your mood..."></textarea>
+            <button onclick="submitMood()">Mood Search</button>
+            <div class="media-links" id="mediaLinks"></div>
+        </div>
+    </div>
+
+    <script>
+        async function submitMood() {
+            const userInput = document.getElementById('userInput').value;
+
+            const response = await fetch("/analyze", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ text: userInput })
+            });
+
+            if (!response.ok) {
+                console.error('Error:', response.statusText);
+                return;
+            }
+
+            const data = await response.json();
+            console.log(data);  // Log the response to see its structure
+
+            document.getElementById('mediaLinks').innerHTML = `
+                <p><b>Video:</b> <a href="${data.video}" target="_blank">${data.video}</a></p>
+                <p><b>Playlist:</b> <a href="${data.playlist}" target="_blank">${data.playlist}</a></p>
+            `;
+        }
+
+        async function deleteNote(noteId) {
+            const response = await fetch(`/delete_note/${noteId}`, {
+                method: "POST"
+            });
+            if (response.ok) {
+                location.reload();
+            }
+        }
+
+        function readNote(text) {
+            const speech = new SpeechSynthesisUtterance(text);
+            window.speechSynthesis.speak(speech);
+        }
+    </script>
+</body>
+</html>
