@@ -51,6 +51,8 @@ For Software:
 # Installation
 https://github.com/ALAN20SIG/interactive-character.git
 
+# Run
+https://tinku-rece.onrender.com
 
 ### Project Documentation
 For Software:
