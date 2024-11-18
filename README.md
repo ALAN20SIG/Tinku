@@ -51,7 +51,7 @@ https://github.com/ALAN20SIG/interactive-character.git
 
 
 # Run
-http://127.0.0.1:5000
+https://tinku-rece.onrender.com
 
 
 ### Project Documentation
