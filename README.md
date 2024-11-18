@@ -1,3 +1,6 @@
+# Run(PROJECT URL)
+https://tinku-rece.onrender.com
+
 # TINKU: The Ultimate Mood Analyzer 
 <img width="1280" alt="readme-banner" src="https://github.com/user-attachments/assets/35332e92-44cb-425b-9dff-27bcf1023c6c">
 
@@ -47,10 +50,6 @@ Tools Used:
 For Software:
 # Installation
 https://github.com/ALAN20SIG/interactive-character.git
-
-
-# Run
-https://tinku-rece.onrender.com
 
 
 ### Project Documentation
