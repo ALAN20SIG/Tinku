@@ -10,7 +10,6 @@
 
 ### Team Members
 - Team Lead: Alan Subhash - Muthoot Institute Of Technology And Science
-- Member 2: Keerthana Dhanish - Muthoot Institute Of Technology And Science
 
 
 ### Project Description
@@ -58,22 +57,20 @@ https://tinku-rece.onrender.com
 For Software:
 
 # Screenshots 
-![Image](https://github.com/user-attachments/assets/f9bb92c6-1aa0-4db2-b2e7-1669119458ef)
+![image](https://github.com/user-attachments/assets/cbb7f64a-0eca-4db7-be45-3f68c521d96a)
 the interactive page of the website
 
-
-![Image](https://github.com/user-attachments/assets/22ce0320-e0c5-48fb-a5ce-279193e61e6c)
+![image](https://github.com/user-attachments/assets/422850ea-74c7-4d35-a234-0bc0ad4cfdf6)
 the animated Ai Avatar
 
-![Image](https://github.com/user-attachments/assets/e15ce45e-4c60-4c3f-a15d-73e2ddc7d04d)
-Output links for youtube and spotify according to users mood
+![image](https://github.com/user-attachments/assets/e2ea0860-c018-434f-be30-1ab8a206b3e2)
+Output links for youtube and spotify according to users mood on keep notes
 
 
 
 ### Project Demo
 # Video
-https://github.com/user-attachments/assets/0dec4ab5-9754-40bb-a1d6-45ac31652ff8
-
+https://github.com/user-attachments/assets/ee66396f-ed07-422b-a0f5-430b2b7de1b2
 
 
 
